@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 const userService = require('../services/users.service')
 
 const userController = {
@@ -23,7 +24,12 @@ const userController = {
 
   async createUsers (req, res) {
     try {
-      const created = await userService.create(req.body)
+
+      const hashPassword = await bcrypt.hash(req.body.password, 10)
+      const created = await userService.create({
+        ...req.body,
+        password: hashPassword
+      })
 
       return res.status(201).json({
         success: true,

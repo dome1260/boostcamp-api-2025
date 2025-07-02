@@ -5,6 +5,10 @@ const userService = {
     return userModel.find(query)
   },
 
+  getOne (query) {
+    return userModel.findOne(query)
+  },
+
   getById (id, query) {
     return userModel.findOne({
       _id: id,
