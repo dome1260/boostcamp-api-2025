@@ -29,7 +29,6 @@ const userController = {
         || !req.body.lastName
         || !req.body.email
       ) {
-        console.error('[ERROR] create users', error)
         return res.status(400).json({
           success: false,
           message: 'First name, Last name and Email is required'

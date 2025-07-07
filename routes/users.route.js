@@ -6,7 +6,7 @@ const { adminGuard } = require('../middlewares/admin-guard')
 
 router.get('/', adminGuard, userController.getAllUsers)
 router.post('/', adminGuard, userController.createUsers)
-router.put('/:id',adminGuard, userController.updateUsers)
+router.put('/:id', adminGuard, userController.updateUsers)
 router.delete('/:id', adminGuard, userController.deleteUsers)
 
 module.exports = router
