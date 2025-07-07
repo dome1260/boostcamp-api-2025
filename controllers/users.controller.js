@@ -36,7 +36,8 @@ const userController = {
       }
 
       const duplicateEmail = await userService.getOne({
-        email: req.body.email
+        email: req.body.email,
+        status: { $ne: 'DELETED' }
       })
       if (duplicateEmail) {
         return res.status(400).json({
@@ -47,7 +48,8 @@ const userController = {
 
       const duplicateFullName = await userService.getOne({
         firstName: req.body.firstName,
-        lastName: req.body.lastName
+        lastName: req.body.lastName,
+        status: { $ne: 'DELETED' }
       })
       if (duplicateFullName) {
         return res.status(400).json({
