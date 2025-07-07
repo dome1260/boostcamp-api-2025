@@ -24,6 +24,38 @@ const userController = {
 
   async createUsers (req, res) {
     try {
+      if (
+        !req.body.firstName
+        || !req.body.lastName
+        || !req.body.email
+      ) {
+        console.error('[ERROR] create users', error)
+        return res.status(400).json({
+          success: false,
+          message: 'First name, Last name and Email is required'
+        })
+      }
+
+      const duplicateEmail = await userService.getOne({
+        email: req.body.email
+      })
+      if (duplicateEmail) {
+        return res.status(400).json({
+          success: false,
+          message: "Email already exists"
+        })
+      }
+
+      const duplicateFullName = await userService.getOne({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+      })
+      if (duplicateFullName) {
+        return res.status(400).json({
+          success: false,
+          message: "This user name already exists.",
+        })
+      }
 
       const hashPassword = await bcrypt.hash(req.body.password, 10)
       const created = await userService.create({
