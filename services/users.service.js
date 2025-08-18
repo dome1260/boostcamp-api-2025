@@ -16,6 +16,10 @@ const userService = {
     })
   },
 
+  getPaginate (query, options) {
+    return userModel.paginate(query, options)
+  },
+
   create (payload) {
     return userModel(payload).save()
   },

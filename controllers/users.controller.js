@@ -5,9 +5,20 @@ const userService = require('../services/users.service')
 const userController = {
   async getAllUsers (req, res) {
     try {
-      const users = await userService.getAll({
-        status: 'ACTIVE'
-      })
+      const { page, limit } = req.query
+
+      const users = await userService.getPaginate(
+        {
+          status: { $ne: 'DELETED' } // not equal
+        },
+        {
+          page: Number(page),
+          limit: Number(limit),
+          sort: {
+            createdAt: -1
+          }
+        }
+      )
 
       return res.status(200).json({
         success: true,
