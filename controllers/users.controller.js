@@ -33,6 +33,35 @@ const userController = {
     }
   },
 
+  async getUserById (req, res) {
+    try {
+      const objectId = new mongoose.Types.ObjectId(`${req.params.id}`)
+
+      const user = await userService.getOne({
+        _id: objectId,
+        status: { $ne: 'DELETED' }
+      })
+
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: 'User not found'
+        })
+      }
+
+      return res.status(200).json({
+        message: 'success',
+        data: user
+      })
+    } catch (error) {
+      console.error('[ERROR] get user by id', error)
+      return res.status(500).json({
+        success: false,
+        message: error
+      })
+    }
+  },
+
   async createUsers (req, res) {
     try {
       if (
