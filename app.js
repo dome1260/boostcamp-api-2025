@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000
 const authRoute = require('./routes/auth.route')
 const userRoute = require('./routes/users.route')
 const uploadRoute = require('./routes/upload.route')
+const tagRoute = require('./routes/tag.route')
+const categoryRoute = require('./routes/category.route')
 
 app.use(cors())
 app.use(express.json())
@@ -16,6 +18,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/auth', authRoute)
 app.use('/users', userRoute)
 app.use('/upload', uploadRoute)
+app.use('/tags', tagRoute)
+app.use('/categories', categoryRoute)
 
 app.get('/', (req, res) => {
   res.send('Welcome to server')
