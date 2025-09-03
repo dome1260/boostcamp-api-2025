@@ -11,6 +11,7 @@ const uploadRoute = require('./routes/upload.route')
 const tagRoute = require('./routes/tag.route')
 const categoryRoute = require('./routes/category.route')
 const productRoute = require('./routes/products.route')
+const orderRoute = require('./routes/orders.route')
 
 app.use(cors())
 app.use(express.json())
@@ -22,6 +23,7 @@ app.use('/upload', uploadRoute)
 app.use('/tags', tagRoute)
 app.use('/categories', categoryRoute)
 app.use('/products', productRoute)
+app.use('/orders', orderRoute)
 
 app.get('/', (req, res) => {
   res.send('Welcome to server')
