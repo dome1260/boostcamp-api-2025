@@ -4,10 +4,11 @@ const router = express.Router()
 const orderController = require('../controllers/orders.controller')
 const { adminGuard } = require('../middlewares/admin-guard')
 
-router.get('/', orderController.getOrderByPaginate)
+router.get('/', adminGuard, orderController.getOrderByPaginate)
 router.get('/:id', adminGuard, orderController.getOrderById)
 router.post('/', adminGuard, orderController.createOrder)
 router.put('/:id', adminGuard, orderController.updateOrder)
+router.patch('/:id/order-status', adminGuard, orderController.updateOrderStatus)
 router.delete('/:id', adminGuard, orderController.deleteOrder)
 
 module.exports = router
